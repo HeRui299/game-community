@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="utf-8" />
+		<title>首页</title>
+		<script type="text/javascript" th:src="@{/js/tpgd.js}"></script>
+		<link rel="stylesheet" th:href="@{/css/HoYo游戏论坛.css}" >
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<header th:replace="header::head">
+			<!--<center>头部</center>-->
+		</header>
+		<div class="content">
+		<div class="L">
+			
+			<div class="L1">
+				<ul id="banner"></ul>
+			</div>	
+			
+			<div class="L2" th:each="post : ${posts}">
+				<img src="img/userheader/avatar10001.png" style="width: 40px;height: 40px;position: relative;margin-left: 25px;margin-top: 20px;"/>
+				<a class="01" style="position: absolute;margin-left: 10px;margin-top: 30px;cursor: pointer;">崩崩崩米游姬</a>
+				<a id="02" style="position: absolute;margin-left: 150px;margin-top: 30px; color: darkgray;">18小时前</a>
+				<h3 th:title="${post.title}" th:text="${post.title}" th:onclick="'detail('+${post.id}+')'">【活动】&nbsp;线上赛决赛队伍出炉，投出你们的一票决定他们的命运吧！</h3>
+				<p>经过晋级赛的激烈角逐，四支队伍的晋级赛成绩终于浮出水面~那么究竟是哪两支队伍能够脱颖而出呢！</p>
+				<img src="img/post/xianshangsai0.png" style="margin-left: 45px;"/>
+				<img src="img/post/xianshangsai.gif" />
+				<img src="img/post/xianshangsai1.gif" />
+				<br />
+				<button>全民线上赛</button>
+			</div>
+			<br/>
+		</div>
+		<div class="r">
+			<div class="r1">
+				<br />
+				<h3>发布</h3>
+				<br />
+				<hr style="border: none; border-bottom: 1px dashed darkgray;" />
+				<br />
+				<ul>
+					<li><a href="#"><img src="img/tz.png" onclick="publish()"/></a></li>
+					<li><a>讨论、分析、攻略、同人文</a></li>
+					<br />
+					<li><a href="#"><img src="img/tp.png"/></a></li>
+					<li><a>绘画、COS、手工、表情包</a></li>
+				</ul>
+			</div>
+		
+			<div class="r2">
+				<a href="www.bh3.com"><img src="img/pc_ad.png"/ style="width: 310px;height: 180px;"></a>
+			</div>
+			
+			<div class="r21">
+						<img style="float: left;" src="img/android.png"/>
+						<ul>
+							<li><a href="#" style="background-color: dodgerblue;margin-top: 15px;">崩坏三桌面版下载</a></li>
+							<li><a href="#" style="background-color: limegreen;">Android下载</a></li>
+						</ul>
+					</div>
+			
+			<div class="r3">
+				<br />
+				<h3>推荐话题</h3>
+				<h4>更多&nbsp;></h4>
+				<br />
+				<hr style="border: none; border-bottom: 1px dashed darkgray;" />
+				<br />
+				<ul>
+					<li>
+						
+							<img src="img/topic/aijiang.png" id="htimg">
+							<a id="wz">爱酱生日大作战</a>
+						
+					</li>
+					
+					<li>
+						
+							<img src="img/topic/xianshangsai.png" id="htimg">
+							<a id="wz">全民线上赛</a>
+						
+					</li>	
+					
+					<li>
+						
+							<img src="img/topic/bengxuejia.png" id="htimg">
+							<a id="wz">崩学家</a>
+						
+					</li>
+					
+					<li>
+						
+							<img src="img/topic/gongnue.png" id="htimg">
+							<a id="wz">4.3攻略征集</a>
+						
+					</li>
+					
+					<li>
+						
+							<img src="img/topic/yisekuangcao.png" id="htimg">
+							<a id="wz">4.3异色狂潮</a>
+						
+					</li>
+				</ul>
+			</div>
+			
+			<div class="r4">
+					<br />
+					<h3>焦点推荐</h3>
+					<h4>更多&nbsp;></h4>
+					<br />
+					<hr style="border: none; border-bottom: 1px dashed darkgray;" />
+					<br />
+					<a href="#"><img src="img/jsgd/6.png" style="width: 285px; height: 150px; border-radius: 15px; margin-left: 12px;margin-bottom: 10px;" ></a>
+				
+					<ul>
+						<li>
+							<a href="#" title="【补给】&nbsp;精准目标：断光之努亚达&童谣">
+								<input type="button" style="padding: 2px 6px;background: darkgray;color: white;border-radius: 5px; border: none;font-family: '微软雅黑';" value="活动">
+								【补给】&nbsp;精准目标：断光之努亚达&童谣
+							</a>
+						</li>
+						<li>
+							<a href="#" title="【跟班告诉你】&nbsp;[不灭星锚]&nbsp;情报来袭！">
+								<input type="button" style="padding: 2px 6px;background: darkgray;color: white;border-radius: 5px; border: none;font-family: '微软雅黑';" value="资讯">
+								【跟班告诉你】&nbsp;[不灭星锚]&nbsp;情报来袭！
+							</a>
+						</li>					
+						<li>
+							<a href="#" title="【预告】&nbsp;《崩坏三》&nbsp;全新S级幽兰黛尔[不灭星锚]角色预告">
+								<input type="button" style="padding: 2px 6px;background: darkgray;color: white;border-radius: 5px; border: none;font-family: '微软雅黑';" value="资讯">
+								【预告】&nbsp;《崩坏三》&nbsp;全新S级幽兰黛尔[不灭星锚]角色预告
+							</a>
+						</li>
+						<li>
+							<a href="#" title="10月26日外挂使用封禁名单">
+								<input type="button" style="padding: 2px 6px;background: darkgray;color: white;border-radius: 5px; border: none;font-family: '微软雅黑';" value="公告">
+								&nbsp;10月26日外挂使用封禁名单
+							</a>
+						</li>
+						<li>
+							<a href="#" title="关于iOS系统剪切板调用问题修复说明">
+								<input type="button" style="padding: 2px 6px;background: darkgray;color: white;border-radius: 5px; border: none;font-family: '微软雅黑';" value="公告">
+								【公告】&nbsp;关于iOS系统剪切板调用问题修复说明
+							</a>
+						</li>
+					</ul>
+				</div>
+			
+			<div class="r5">
+				<br />
+				<h3>推荐用户</h3>
+				<h4>更多&nbsp;></h4>
+				<br />
+				<hr style="border: none; border-bottom: 1px dashed darkgray;" />
+				<br />
+				<ul>
+					<li th:each="map : ${MapUser}">
+						<a href="#">
+							<img onerror="javascript:this.src='img/userheader/avatarDefaultPc.png'" th:src="@{|/user/header/${map.user.id}|}" style="width: 50px;height: 50px;border-radius: 50px;margin-left: -10px;">
+							<a href="#" id="wenzi" th:text="${map.user.username}">悠米pl</a>
+							<input type="button" class="follow" th:value="${map.followStatus ? '已关注' : '关注'}" th:onclick="'follow('+${map.user.id}+')'"/>
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+		</div>
+		
+		<footer class="footer" th:replace="footer::ss"></footer>
+
+	</body>
+</html>
+<script th:inline="javascript">
+
+	var user = [[${session.user}]]
+	var id;
+	if(user != null){
+		id = user.id;
+	}
+	function follow(fid) {
+		$.get("/follow",{"uId":id,"fId":fid},function () {
+			window.location.href="/";
+		})
+	}
+
+
+	// 帖子详情
+	function detail(id) {
+		window.location.href="/post/detail/" +　id;
+	}
+
+function show1(){
+  		var aTrue = document.getElementsByClassName(true);
+  		var aFalse = document.getElementsByClassName(false);
+
+  		var x= 1;
+  		if (aTrue[0].style.display!="none"){
+
+  			aTrue[0].style.display="none";
+  			aFalse[0].style.display="inline";
+   		}
+  		else{
+  			aTrue[0].style.display="inline";
+  			aFalse[0].style.display="none";
+  		}
+}
+
+// 发布页面
+function publish() {
+	window.location.href="/post/publish"
+}
+
+function show2(){
+  		var aTrue = document.getElementsByClassName(true);
+  		var aFalse = document.getElementsByClassName(false);
+
+  		var x= 1;
+  		if (aTrue[0].style.display!="none"){
+
+  			aTrue[0].style.display="none";
+  			aFalse[0].style.display="inline";
+   		}
+  		else{
+  			aTrue[0].style.display="inline";
+  			aFalse[0].style.display="none";
+  		}
+}
+function show3(){
+  		var aTrue = document.getElementsByClassName(true);
+  		var aFalse = document.getElementsByClassName(false);
+
+  		var x= 1;
+  		if (aTrue[0].style.display!="none"){
+
+  			aTrue[0].style.display="none";
+  			aFalse[0].style.display="inline";
+   		}
+  		else{
+  			aTrue[0].style.display="inline";
+  			aFalse[0].style.display="none";
+  		}
+}
+function show4(){
+  		var aTrue = document.getElementsByClassName(true);
+  		var aFalse = document.getElementsByClassName(false);
+
+  		var x= 1;
+  		if (aTrue[0].style.display!="none"){
+
+  			aTrue[0].style.display="none";
+  			aFalse[0].style.display="inline";
+   		}
+  		else{
+  			aTrue[0].style.display="inline";
+  			aFalse[0].style.display="none";
+  		}
+}
+function show5(){
+  		var aTrue = document.getElementsByClassName(true);
+  		var aFalse = document.getElementsByClassName(false);
+
+  		var x= 1;
+  		if (aTrue[0].style.display!="none"){
+
+  			aTrue[0].style.display="none";
+  			aFalse[0].style.display="inline";
+   		}
+  		else{
+  			aTrue[0].style.display="inline";
+  			aFalse[0].style.display="none";
+  		}
+}
+
+
+</script>

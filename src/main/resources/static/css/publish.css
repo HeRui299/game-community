@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body{
+	background: rgb(240,241,245);
+}
+.content{
+	width: 1050px;
+	height: auto;
+	padding-bottom:80px ;
+	/*border: 1px solid orange;*/
+	margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+    background-color: white;
+    border-radius: 10px;
+}
+.content h3{
+	font-family: "微软雅黑";
+	padding: 15px 35px;
+	border-bottom: 1px solid lightgray;
+}
+.content >.title{
+	height: 55px;
+	line-height: 55px;
+	width: 950px;
+	/*border-bottom: 1px solid lightgray;*/
+	font-family: "微软雅黑";
+	font-size: 18px;
+	margin-left: 65px;
+	margin-top: 50px;
+}
+.content >.title input{
+	padding: 15px;
+	width: 750px;
+	margin-left: 70px;
+	border-radius: 5px;
+	border: 1px solid lightgray;
+	outline: none;
+	font-size: 17px;
+}
+.container{
+	font-family: "微软雅黑";
+}
+.container >.main{
+	width: 950px;
+	height: 500px;
+	/*border: 1px solid lightgray;*/
+	margin-left: 65px;
+}
+.container >.main span{
+	float: left;
+	
+	font-size: 18px;
+}
+.container >.main textarea{
+	float: left;
+	margin-left: 17px;
+	margin-top: 14px;
+	border-radius: 5px;
+	outline: none;
+	font-size: 17px;
+	border: none;
+}
+/* 滚动条框设置 */   
+.container >.main textarea::-webkit-scrollbar {
+	width: 12px; 
+	background-color: darkgray;
+}   
+/* 滚动条的设置 */   
+.container >.main textarea::-webkit-scrollbar-thumb {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);     
+	background-color: skyblue;
+}
+.content >.container >.check{
+	margin-left: 65px;
+	font-size: 18px;
+}
+.content >.container >.check input{
+	margin-left: 30px;
+}
+.content >.container >.button button{
+	padding: 10px 65px;
+	font-family: "微软雅黑";
+	font-size: 18px;
+	background-color: deepskyblue;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.content >.container >.button button:hover{
+	background-color: lightskyblue;
+}

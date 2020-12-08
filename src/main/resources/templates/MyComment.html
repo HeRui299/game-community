@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>我的评论</title>
+    <link rel="stylesheet" th:href="@{/css/personal.css}" >
+</head>
+<body>
+<div class="content">
+    <p style="padding: 15px 25px;font-size: 18px;border-bottom: 1px solid lightgray;">我的评论</p>
+    <div th:each="comment : ${myComment}">
+        <p style="margin-top: 15px;margin-left: 20px" th:text="${#dates.format(post.createTime,'yyyy-MM-dd')}">1004 0 2</p>
+        <h3 style="margin-left: 25px;margin-top:10px" th:text="${post.title}">123</h3>
+        <p style="margin-left: 25px;color: gray" th:text="${post.content}">123</p>
+        <div style="margin-top:10px">
+            <label style="margin-left: 400px">浏览量:<span th:text="${post.viewCount}"></span></label>
+            <label style="margin-left: 25px"> 评论量:<span th:text="${post.commentCount}"></span></label>
+            <label style="margin-left: 25px">点赞数:<span th:text="${post.likeCount}"></span></label>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    暂无任何评论
+</div>
+</body>
+</html>

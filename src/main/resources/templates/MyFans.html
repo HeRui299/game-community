@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>我的粉丝</title>
+    <link rel="stylesheet" th:href="@{/css/personal.css}" >
+</head>
+<body>
+<div class="content">
+    <p style="padding: 15px 25px;font-size: 18px;border-bottom: 1px solid lightgray;">我的粉丝</p>
+    <div th:each="fan : ${myFans}">
+        <p>
+            <!-- 用户头像 -->
+            <img th:src="@{|/user/header/${fan.id}|}" alt="">
+            <!-- 用户昵称 -->
+            <span th:text="${fan.username}"></span>
+        </p>
+    </div>
+</div>
+
+<div class="content" th:if="${myFans == null}">
+
+    暂无粉丝喔！
+
+</div>
+</body>
+</html>

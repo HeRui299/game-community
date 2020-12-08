@@ -1,0 +1,158 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" th:href="@{/css/public.css}" >
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<header th:fragment="head">
+			<ul class="header0">
+				<li><a href="#">HoYo</a></li>
+				<li><a href="#">崩坏三</a></li>
+			</ul>
+
+			<ul class="header1">
+				<li><a th:href="@{/}" style="background-color: rgb(56,208,255);font-weight: bold;">首页</a></li>
+				<li><a th:href="@{/deck.html}">甲板</a></li>
+				<li><a th:href="@{/strategy.html}">攻略</a></li>
+				<li><a th:href="@{/official.html}">官方</a></li>
+				<li><a th:href="@{/photo.html}">同人图</a></li>
+				<li><a th:href="@{/article.html}">同人文</a></li>
+				<li>
+					<div class="dropdown">
+						<button class="dropbtn"><a style="font-family: '微软雅黑';width: 50px; height: 60px;line-height: 60px;">更多</a></button>
+						<div class="dropdown-content">
+							<a href="#" style="padding: 10px 50px 10px;margin-top: 5px;">问答</a>
+							<a href="#" style="padding: 10px 50px 10px;margin-top: 0px;">反馈</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+			<div class="container">
+				<input style="outline: none;" type="search" id="search">
+				<input type="image" id="icon" src="img/magnifier.png" />
+			</div>
+			<div class="avatar">  <!--login-header-->
+				<a id="link" href="javascript:void(0);"><img onerror="javascript:this.src='img/userheader/avatarDefaultPc.png'" id="tx"/></a>
+			</div>
+
+			<script th:inline="javascript">
+				var session = [[${session.user}]];
+				$(function () {
+					if(session != null){
+						$("#tx").attr('src',"/user/header/"+session.id);
+					}else{
+						$("#tx").attr('src',"ll.jpg");
+					}
+				})
+
+				function check() {
+					if(document.getElementById("txtName").value == "") {
+						alert("用户名不能为空");
+						return false;
+					}
+					if(document.getElementById("txtPassword").value == "") {
+						alert("密码不能为空");
+						return false;
+					}
+					return true;
+				}
+			</script>
+
+			<div id="login" class="login">
+				<h1 th:text="${user}"></h1>
+				<div th:if="${session.user == null}">
+					<div id="title" class="login-title">登录社区
+						<span><a id="closeBtn" href="javascript:void(0);" class="close-login">关闭</a></span>
+					</div>
+					<form>
+						<div class="login-input-content">
+							<div class="login-input">
+								<input type="text" placeholder="手机号/邮箱/用户名" name="txtName" id="txtName" class="list-input">
+							</div>
+							<div class="login-input">
+								<input type="password" placeholder="密码" name="txtPassword" id="txtPassword" class="list-input">
+							</div>
+						</div>
+						<div id="loginBtn" class="login-button"><a href="javascript:check()" id="login-button-submit" style="color: white;">登录</a></div>
+						<div class="question"><a href="#">登录遇到问题?</a></div>
+						<div class="register"><a href="register.html">注册</a></div>
+					</form>
+					<div class="careful"><p>登录即代表您同意并遵守<a href="#" style="color: deepskyblue;">《HoYo社区用户服务协议》&nbsp;《HoYo社区用户个人信息及隐私保护政策》</a></p></div>
+				</div>-
+			</div>
+
+			<!-- 遮盖层 -->
+			<div id="bg" class="login-bg" ></div>
+			<script th:inline="javascript">
+				var flag = [[${session.user}]];
+				// 显示登录框和遮盖层
+				var login = document.getElementById('login');
+				var bg = document.getElementById('bg');
+				//1 点击按钮，弹出登录框和遮盖层
+				var link = document.getElementById('link');
+				link.onclick = function () {
+					if(flag == null) {
+						login.style.display = 'block';
+						bg.style.display = 'block';
+					}else{
+						window.location.href="/user/person";
+					}
+					return false;
+				}
+				function check() {
+					if(document.getElementById("txtName").value == "") {
+						alert("用户名不能为空");
+						return false;
+					}
+					if(document.getElementById("txtPassword").value == "") {
+						alert("密码不能为空");
+						return false;
+					}
+
+					$.post("/user/login",{"username":document.getElementById("txtName").value,"password":document.getElementById("txtPassword").value},function (data) {
+						if (data.code == 0){
+							window.location.href="/"
+						}else{
+							alert(data.msg);
+						}
+
+					})
+
+					return true;
+				}
+				// 2 点击关闭按钮，隐藏 登录框和遮盖层
+				var closeBtn = document.getElementById('closeBtn');
+				closeBtn.onclick = function () {
+					// 隐藏 登录框和遮盖层
+					login.style.display = 'none';
+					bg.style.display = 'none';
+				}
+
+				// 3 拖拽
+				var title = document.getElementById('title');
+				title.onmousedown = function (e) {
+					// 鼠标按下，求鼠标在盒子中的位置
+					var x = e.pageX - login.offsetLeft;
+					var y = e.pageY - login.offsetTop;
+
+					document.onmousemove = function (e) {
+						// 鼠标移动的时候， 盒子的坐标
+						var loginX = e.pageX - x;
+						var loginY = e.pageY - y;
+
+						login.style.left = loginX + 256 + 'px';
+						login.style.top = loginY - 140 + 'px';
+					}
+				}
+
+				document.onmouseup = function () {
+					// 移除鼠标移动的事件
+					document.onmousemove = null;
+				}
+			</script>
+		</header>
+	</body>	
+</html>

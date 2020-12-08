@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" th:href="@{/css/personal.css}" >
+		<base href="/">
+	</head>
+	<body>
+	<div th:replace="header::head"></div>
+		
+		<div class="header2">
+			<div class="headerimg">
+				<img th:src="@{|/user/header/${session.user.id}|}" style="width: 160px;height: 160px;"/>
+			</div>
+			<div class="edit">
+				<h2 style="margin-top: 45px;font-weight: bold;font-family: '微软雅黑';">时光深巷</h2>
+				<input type="button" value="编辑" id="edit1"/>
+				<div class="information">
+					<div style="width: 33%;height: 100px;float: left;border: 1px solid green;">
+						<a style="position: absolute;margin-left: 40px;margin-top: 60px;">粉丝 <b th:text="${user.fansCount}"></b></a>
+					</div>
+					
+					<div style="width: 33%;height: 100px;float: left;border: 1px solid green;">
+						<a style="position: absolute;margin-left: 40px;margin-top: 60px;">关注<b th:text="${user.followCount}"></b></a>
+					</div>
+					
+					<div style="width: 32%;height: 100px;float: left;border: 1px solid green;">
+						<a style="position: absolute;margin-left: 40px;margin-top: 60px;">获赞 <b th:text="${user.likeCount}"></b></a>
+					</div>
+					
+				</div>
+			</div>	
+		</div>
+		
+	<div class="main">
+		<div class="nav">
+			<p>个人中心</p>
+			<ul>
+				<li><img src="img/personal/post.png"/><a href="javascript:void(0)" onclick="myPost()">我的发帖</a></li>
+				<li style="border-bottom: 1px dashed gainsboro;"><img src="img/personal/reply.png"/><a href="javascript:void(0)" onclick="myComment()">我的评论</a></li>
+				<li><img src="img/personal/fans.png"/><a href="javascript:void(0)" onclick="myFans()">我的粉丝</a></li>
+				<li style="border-bottom: 1px dashed gainsboro;"><img src="img/personal/follow.png"/><a href="javascript:void(0)" onclick="myFollow()">我的关注</a></li>
+				<li><img src="img/personal/accountCenter.png"/><a th:href="@{/user/person}">编辑资料</a></li>
+				<li><img src="img/personal/quit.png"/><a th:href="@{/logout}">退出登录</a></li>
+			</ul>
+		</div>
+		
+		<div id="content" class="content">
+			<p style="padding: 15px 25px;font-size: 18px;border-bottom: 1px solid lightgray;">编辑资料</p>
+			
+			<div style="width: 160px;height: 160px;border-radius: 50%;border: 3px solid red;margin-left: auto;margin-right: auto;margin-top: 40px;margin-bottom: 50px;">
+				<img th:src="@{|/user/header/${session.user.id}|}" id="gg" style="width: 160px;height: 160px;"/>
+				<form id="header">
+					<input type="file" name="file" style="margin-left: 50px;color: deepskyblue;font-size: 15px;cursor: pointer;" value="修改头像"/>
+				</form>
+			</div>
+			<br />
+			
+			<div class="name">
+				<span>昵称</span>
+				<a>时光深巷</a>
+			</div>
+			<br />
+			<div class="check">
+				<span>性别</span>
+				<input type="radio" name="sex"id="s1"/><label for="s1">男</label>
+			    <input type="radio" name="sex"id="s2"/><label for="s2">女</label>
+			    <input type="radio" name="sex"id="s3"/><label for="s3">保密</label>
+			</div>		
+			<br />
+			<input id="keep" type="submit" value="保存"/>
+		</div>
+	  
+	</div>
+	<iframe  marginwidth="0" marginheight="0" style="margin: 0; padding: 0;" frameborder="0" scrolling="no" th:src="@{/footer.html}" height="260px" width="100%"></iframe>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script th:inline="javascript">
+		var user = [[${session.user}]]
+
+		// 我的发帖
+		function myPost(){
+			$("#content").load("/user/myPost/"+user.id);
+		}
+
+		// 我的评论
+		function myComment(){
+			$("#content").load("/user/myComment/"+user.id);
+		}
+
+		// 我的粉丝
+		function myFans(){
+			$("#content").load("/user/myFans/"+user.id);
+		}
+
+		// 我的关注
+		function myFollow(){
+			$("#content").load("/user/myFollower/"+user.id);
+		}
+
+
+
+		$("#keep").click(function() {
+			$.ajax({
+				"url":"/user/update_avatar",
+				"data":new FormData($("#header")[0]),
+				"processData":false,
+				"contentType":false,
+				"type":"POST",
+				"dataType":"json",
+				"success":function(json) {
+					if (json.state == 100) {
+						alert("修改成功！");
+						window.location.href="user/person";
+						// $("#img-avatar").attr("gg", json.url);
+					} else {
+						alert("修改失败！" + json.message + "！");
+					}
+				},
+				"error":function(xhr) {
+					alert("您的登录信息已经过期，请重新登录！\n\nHTTP响应码：" + xhr.status);
+					// location.href = "login.html";
+				}
+			});
+		});
+	</script>
+	</body>
+	
+</html>

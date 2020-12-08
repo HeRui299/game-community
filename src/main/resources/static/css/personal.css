@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body{
+	background: rgb(240,241,245);
+}
+
+.header2{
+	width: 1050px;
+	height: 200px;
+	background-color: white;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	margin-left: 15%;
+	border-radius: 15px;
+}
+.headerimg{
+	float: left;
+	width: 160px;
+	height: 160px;
+	border-radius: 50%;
+	border: 3px solid red;/*02*/
+	margin-top: 15px;
+	margin-left: 45px;
+	overflow: hidden;
+}
+.edit{
+	position: relative;
+	float: left;
+	width: 70%;
+	height: 160px;
+	/*border: 3px solid blue;*//*02*/
+	margin-top: 17.5px;
+	margin-left: 25px;
+}
+.edit #edit1{
+	padding: 7px 30px;
+	font-family: '微软雅黑';
+	font-size: 17px;
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0);
+	border: none;
+	border: 1px solid dodgerblue;
+	color: dodgerblue;
+	cursor: pointer;
+	margin-top: 10px;
+}
+.edit #edit1:hover{
+	border: 1px solid deepskyblue;
+	color: deepskyblue;
+}
+.information{
+	width: 60%;
+	height: 90px;
+	position: absolute;
+	margin-top: -90px;
+	margin-left: 32%;
+	/*border: 1px solid orange;*/
+	font-family: "微软雅黑";
+}
+.information a{
+	font-size: 19px;
+	color: darkgray;
+}
+.main{
+	width: 1050px;
+	height: auto;
+	padding-bottom: 40px;
+	margin-bottom: 120px;
+	/*border: 1px solid red;*/
+	margin-left: 15%;
+}
+.nav{
+	float: left;
+	width: 340px;
+	height: 500px;
+	background-color: white;
+	border-radius: 15px;
+	/*margin-right: 30px;*/
+
+}
+.nav p{
+	padding: 15px 55px;
+	font-family: "微软雅黑";
+	font-size: 18px;
+	border-bottom: 1px solid lightgrey;
+}
+.nav li{
+	list-style: none;
+	padding: 25px 0px;
+	text-align: center;
+	font-family: "微软雅黑";
+	cursor: pointer;
+	color: slategray;
+}
+.nav li img{
+	position: absolute;
+	margin-top: -2px;
+	margin-left: -40px;
+}
+.nav li:hover{color: deepskyblue;}
+.content{
+	float: right;
+	width: 680px;
+	height: auto;
+	padding-bottom: 80px;
+	margin-bottom: 40px;
+	/*margin-left: 28%;*/
+	background-color: white;
+	border-radius: 15px;
+	font-family: "微软雅黑";
+}
+
+.content #keep{
+	padding: 8px 30px;
+	font-family: '微软雅黑';
+	font-size: 18px;
+	border-radius: 10px;
+	background-color: rgba(0,0,0,0);
+	border: none;
+	border: 1px solid dodgerblue;
+	color: dodgerblue;
+	margin-top: 40px;
+	margin-left: 42%;
+
+}
+.content >.name{
+	margin-left: 65px;
+	padding: 15px 0px;
+}
+.content >.name span{
+	margin-right: 20px;
+	font-size: 18px;
+	color: lightgray;
+}
+.content >.name a{
+	font-size: 18px;
+	margin-left: 30px;
+}
+.content >.check{
+	margin-left: 65px;
+	padding: 15px 0px;
+}
+.content >.check span{
+	margin-right: 20px;
+	font-size: 18px;
+	color: lightgray;
+}
+.content >.check input{
+	font-size: 18px;
+	margin-left: 30px;
+}

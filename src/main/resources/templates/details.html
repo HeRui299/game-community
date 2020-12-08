@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link th:href="@{/css/details.css}" rel="stylesheet"/>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<base href="/">
+	</head>
+	<body>
+
+	<iframe  marginwidth="0" marginheight="0" style="margin: 0; padding: 0;" frameborder="0" scrolling="no" th:src="@{/header.html}" height="260px" width="100%"></iframe>
+		
+		<div class="content">
+			
+			<div class="L">
+				<div class="main" th:text="${post.content}">
+
+				</div>
+				<div class="side">
+					<div style="width: 100px;height: 125px;border-bottom: 1px solid lightgray;">
+						<img src="img/discuss.png"/>
+						<p th:text="${post.commentCount}"></p>
+					</div>
+					<div style="width: 100px;height: 125px;">
+						<img src="img/likes.png" id="like" th:onclick="'like('+${post.id}+')'"/>
+						<p th:text="${post.likeCount}"></p>
+					</div>
+				</div>
+				<div class="discuss">
+<!--					<form id="comment">-->
+						<p style="padding: 15px 50px;color: lightgray;">看帖是喜欢，评论才是真爱：</p>
+						<div class="textarea">
+							<textarea rows="6" id="ss" cols="70" placeholder="请开始你的表演"></textarea>
+						</div>
+						<div class="button">
+							<button th:onclick="'addComment('+${post.id}+')'">评&nbsp;论</button>
+						</div>
+<!--					</form>-->
+				</div>
+				<div class="reply">
+					<h3>全部评论</h3>
+					<!-- comment -->
+					<div class="name" th:each="comment : ${comments}">
+						<img src="img/userheader/avatar30013.png" style="width: 55px;height: 55px;border-radius: 50%;"/>
+						<span th:text="${comment.content}">雨落狂流之夜</span>
+					</div>
+					<div class="textarea">
+						<textarea rows="12"  id="ss" cols="60" placeholder="请开始你的表演"></textarea>
+					</div>
+					<!-- anwser -->
+					<div class="answer">
+						<div class="name1">
+							<img src="img/userheader/avatar30013.png" style="width: 27px;height: 27px;border-radius: 50%;margin-right: 15px;"/>
+							<span>雨落狂流之夜</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="R">
+				<div class="information">
+					<div class="avatar" style="">
+						<img src="img/userheader/avatarDefaultPc.png" style="width: 100px;height: 100px;"/>
+					</div>
+					<div class="text">
+						<h3>崩崩崩米游姬</h3>
+						<button class="follow" onclick="show1()">
+							<span class="true">
+  								关注
+  							</span>
+  							<span class="false">
+  								已关注
+  							</span>
+						</button>
+						<script type="text/javascript">
+							function show1(){
+  								var aTrue = document.getElementsByClassName(true);
+  								var aFalse = document.getElementsByClassName(false);
+ 
+  								var x= 1;
+  								if (aTrue[0].style.display!="none"){
+  	
+  									aTrue[0].style.display="none";
+  									aFalse[0].style.display="inline";
+   								}
+  								else{
+  									aTrue[0].style.display="inline";
+  									aFalse[0].style.display="none";
+  								}
+							} 
+						</script>
+					</div>
+				</div>
+				
+				<div class="R1">
+					<a href="www.bh3.com"><img src="img/pc_ad.png" style="width: 310px;height: 180px;"/></a>
+				</div>
+			
+				<div class="R11">
+					<img style="float: left;" src="img/android.png"/>
+					<ul>
+						<li><a href="#" style="background-color: dodgerblue;margin-top: 15px;">崩坏三桌面版下载</a></li>
+						<li><a href="#" style="background-color: limegreen;">Android下载</a></li>
+					</ul>
+				</div>
+				<div class="R2">
+					<h3>所属板块</h3>
+					<div class="img">
+						<img src="img/plate.png" />
+						<span th:text="${type}" style="position: absolute; margin-left: 15px;margin-top: 20px;">甲板</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<iframe  marginwidth="0" marginheight="0" style="margin: 0; padding: 0;" frameborder="0" scrolling="no" th:src="@{/footer.html}" height="260px" width="100%"></iframe>
+
+	<script th:inline="javascript">
+		var user = [[${session.user}]]
+		var likeStatus = [[${likeStatus}]]
+		// 判断这个帖子是否被当前用户赞过
+		if (likeStatus){
+			$("#like").attr("src","img/likes2.png");
+		}
+
+		// 喜欢这篇帖子
+		function like(id) {
+			$.get("/post/like",{"uId":user.id,"likeId":id},function () {
+				window.location.href="/post/detail/"+id
+			});
+		}
+
+		// 添加评论
+		function addComment(id) {
+			$.post("/comment/addComment",{"content":$("#ss").val()},function () {
+				alert("评论成功");
+				window.location.href="/post/detail/"+id;
+			})
+		}
+	</script>
+	</body>
+</html>

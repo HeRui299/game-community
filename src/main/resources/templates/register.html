@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title>新用户注册</title>
+		<link th:href="@{/css/register.css}" rel="stylesheet"/>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+    	</style>
+		<script>
+			function doRegister(){
+				var username = $("#txtName").val();
+				var password = $("#txtPass").val();
+				var password1 = $("#txtPassword").val();
+				if (password != password1){
+					alert("重复密码输入不对")
+					return;
+				}
+				$.post("/user/register",{"username":username,"password":password},function (data) {
+					alert(data.msg);
+				});
+			}
+		</script>
+	</head>
+	
+	
+	<body>
+		<div class="header">
+			<img th:src="@{/img/HoYologo.png}" />
+		</div>
+		
+		<div class="content">
+			<h1>注册HoYo论坛账户</h1>
+			<br />
+			<p>注册即代表您同意并遵守<a href="#" style="color: deepskyblue;text-decoration: none;">《HoYo社区用户服务协议》&nbsp;《HoYo社区用户个人信息及隐私保护政策》</a></p>
+			<form id="register">
+				<tr>
+					<td><input type="text" name="username" id="txtName" placeholder="设置用户名"/></td>
+				</tr>
+				<tr>
+					<td><input type="password" name="passwprd" id="txtPass" placeholder="设置登录密码"></td>
+				</tr>
+				<tr>
+					<td><input type="password" name="txtConfirePassword" id="txtPassword" placeholder="请再次输入密码"></td>
+				</tr>
+				<tr>
+					<td><input type="button" id="btn_sub" value="注册" onclick="doRegister()"></td>
+				</tr>
+			</form>
+						
+			<div class="footer">
+            	<p>已有账号?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{/toLogin}" style="color: deepskyblue;">立即登录</a></p>
+        	</div>
+			
+		</div>
+		
+		
+	</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link th:href="@{/css/publish.css}" rel="stylesheet"/>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<base href="/">
+	</head>
+	<body>
+		<header th:replace="header::head"></header>
+		<form id="post">
+			<div class="content">
+				<h3>发布帖子</h3>
+				<div class="title">
+					<span>标题：</span>
+					<input type="text" name="title" auto-height placeholder="标题(必填)"/>
+				</div>
+				<br />
+				<div class="container">
+					<div class="main">
+						<span>内容：</span>
+						<div style="width: 782px;height: 450px; border: 1px solid lightgray;margin-left: 128px;border-radius: 5px;">
+							<textarea rows="21" name="content" cols="73" placeholder="请尽情发挥吧···"></textarea>
+						</div>
+					</div>
+
+
+					<br />
+					<div class="check">
+						<span>发布板块：</span>
+						<input type="checkbox" name="postType" value="1"/><label for="s1">甲板</label>
+						<input type="checkbox" name="postType" value="2"/><label for="s2">攻略</label>
+						<input type="checkbox" name="postType" value="3"/><label for="s3">同人文</label>
+					</div>
+					<div class="button" style="width: 166px;height:50px;margin: 0 auto;margin-top: 60px;">
+						<button onclick="pub()">发布</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<iframe  marginwidth="0" marginheight="0" style="margin: 0; padding: 0;" frameborder="0" scrolling="no" th:src="@{/footer.html}" height="260px" width="100%"></iframe>
+
+	<script>
+		// 保存帖子
+		function pub() {
+			$.post("/post/save",$("#post").serializeArray(),function () {
+				window.location.href="/index.html"
+			})
+		}
+	</script>
+	</body>
+</html>
