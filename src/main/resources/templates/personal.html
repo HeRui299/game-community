@@ -14,7 +14,7 @@
 				<img th:src="@{|/user/header/${session.user.id}|}" style="width: 160px;height: 160px;"/>
 			</div>
 			<div class="edit">
-				<h2 style="margin-top: 45px;font-weight: bold;font-family: '微软雅黑';">时光深巷</h2>
+				<h2 style="margin-top: 45px;font-weight: bold;font-family: '微软雅黑';" th:text="${session.user.username}">时光深巷</h2>
 				<input type="button" value="编辑" id="edit1"/>
 				<div class="information">
 					<div style="width: 33%;height: 100px;float: left;border: 1px solid green;">
@@ -42,7 +42,7 @@
 				<li><img src="img/personal/fans.png"/><a href="javascript:void(0)" onclick="myFans()">我的粉丝</a></li>
 				<li style="border-bottom: 1px dashed gainsboro;"><img src="img/personal/follow.png"/><a href="javascript:void(0)" onclick="myFollow()">我的关注</a></li>
 				<li><img src="img/personal/accountCenter.png"/><a th:href="@{/user/person}">编辑资料</a></li>
-				<li><img src="img/personal/quit.png"/><a th:href="@{/logout}">退出登录</a></li>
+				<li><img src="img/personal/quit.png"/><a th:href="@{/user/logout}">退出登录</a></li>
 			</ul>
 		</div>
 		
@@ -52,7 +52,7 @@
 			<div style="width: 160px;height: 160px;border-radius: 50%;border: 3px solid red;margin-left: auto;margin-right: auto;margin-top: 40px;margin-bottom: 50px;">
 				<img th:src="@{|/user/header/${session.user.id}|}" id="gg" style="width: 160px;height: 160px;"/>
 				<form id="header">
-					<input type="file" name="file" style="margin-left: 50px;color: deepskyblue;font-size: 15px;cursor: pointer;" value="修改头像"/>
+					<input type="file"  id="hhh" name="file" style="margin-left: 50px;color: deepskyblue;font-size: 15px;cursor: pointer;" value="修改头像"/>
 				</form>
 			</div>
 			<br />
@@ -77,6 +77,20 @@
 	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 	<script th:inline="javascript">
 		var user = [[${session.user}]]
+
+		// 头像预览
+		$("#hhh").change(function () {
+			// 获取上传文件对象
+			var file = $(this)[0].files[0];
+			// 读取文件URL
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			// 阅读文件完成后触发的事件
+			reader.onload = function () {
+				// 读取的URL结果：this.result
+				$("#gg").attr("src", this.result);
+			}
+		});
 
 		// 我的发帖
 		function myPost(){

@@ -39,7 +39,9 @@ public class IndexController {
     public String index(Model model){
         User user = (User) session.getAttribute("user");
         // 帖子列表
-        List<Post> list = postService.list();
+        QueryWrapper wrapper1 = new QueryWrapper<>();
+        wrapper1.orderByDesc("create_time");
+        List<Post> list = postService.list(wrapper1);
         model.addAttribute("posts",list);
 
         List<Map<String,Object>> listMap = new ArrayList<>();
@@ -79,4 +81,38 @@ public class IndexController {
         model.addAttribute("MapUser",listMap);
         return "index";
     }
+
+    @GetMapping("/deck.html")
+    public String deck(Model model){
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("post_type",1);
+        wrapper.orderByDesc("create_time");
+        List list = postService.list(wrapper);
+        model.addAttribute("posts",list);
+        return "deck";
+    }
+
+
+    @GetMapping("/strategy.html")
+    public String strategy(Model model){
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("post_type",2);
+        wrapper.orderByDesc("create_time");
+        List list = postService.list(wrapper);
+        model.addAttribute("posts",list);
+        return "deck";
+    }
+
+    @GetMapping("/article.html")
+    public String article(Model model){
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("post_type",3);
+        wrapper.orderByDesc("create_time");
+        List list = postService.list(wrapper);
+        model.addAttribute("posts",list);
+        return "deck";
+    }
+
+
+
 }

@@ -9,7 +9,7 @@
 	</head>
 	<body>
 
-	<iframe  marginwidth="0" marginheight="0" style="margin: 0; padding: 0;" frameborder="0" scrolling="no" th:src="@{/header.html}" height="260px" width="100%"></iframe>
+	<div class="header" th:replace="header::head"></div>
 		
 		<div class="content">
 			
@@ -132,7 +132,7 @@
 
 		// 添加评论
 		function addComment(id) {
-			$.post("/comment/addComment",{"content":$("#ss").val()},function () {
+			$.post("/comment/addComment",{"content":$("#ss").val(),"id":id},function () {
 				alert("评论成功");
 				window.location.href="/post/detail/"+id;
 			})

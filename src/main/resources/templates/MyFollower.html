@@ -11,14 +11,14 @@
     <div th:each="follower : ${myFollower}">
         <p style="margin-top:20px">
             <!-- 用户头像 -->
-            <img th:src="@{|/user/header/${follower.id}|}" alt="" style="width: 80px;height: 40px;margin-right: 20px">
+            <img th:src="@{|/user/header/${follower.id}|}" onerror="javascript:this.src='img/userheader/avatarDefaultPc.png'" alt="" style="width: 80px;height: 40px;margin-right: 20px">
             <!-- 用户昵称 -->
             <span th:text="${follower.username}"></span>
         </p>
     </div>
 </div>
 
-<div class="content" th:if="${myFollower == null}">
+<div class="content" th:if="${#lists.isEmpty(myFollower)}">
 
     暂无关注用户喔！
 

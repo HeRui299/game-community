@@ -8,7 +8,7 @@
 		<base href="/">
 	</head>
 	<body>
-		<header th:replace="header::head"></header>
+		<div class="header" th:replace="header::head"></div>
 		<form id="post">
 			<div class="content">
 				<h3>发布帖子</h3>
@@ -17,15 +17,13 @@
 					<input type="text" name="title" auto-height placeholder="标题(必填)"/>
 				</div>
 				<br />
-				<div class="container">
-					<div class="main">
+				<div class="container1">
+					<div class="main1">
 						<span>内容：</span>
 						<div style="width: 782px;height: 450px; border: 1px solid lightgray;margin-left: 128px;border-radius: 5px;">
 							<textarea rows="21" name="content" cols="73" placeholder="请尽情发挥吧···"></textarea>
 						</div>
 					</div>
-
-
 					<br />
 					<div class="check">
 						<span>发布板块：</span>
@@ -39,12 +37,13 @@
 				</div>
 			</div>
 		</form>
-		<iframe  marginwidth="0" marginheight="0" style="margin: 0; padding: 0;" frameborder="0" scrolling="no" th:src="@{/footer.html}" height="260px" width="100%"></iframe>
 
+		<iframe  marginwidth="0" marginheight="0" style="margin: 0; padding: 0;" frameborder="0" scrolling="no" th:src="@{/footer.html}" height="260px" width="100%"></iframe>
 	<script>
 		// 保存帖子
 		function pub() {
 			$.post("/post/save",$("#post").serializeArray(),function () {
+				alert("发布成功");
 				window.location.href="/index.html"
 			})
 		}

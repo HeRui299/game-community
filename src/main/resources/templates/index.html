@@ -21,7 +21,7 @@
 			<div class="L2" th:each="post : ${posts}">
 				<img src="img/userheader/avatar10001.png" style="width: 40px;height: 40px;position: relative;margin-left: 25px;margin-top: 20px;"/>
 				<a class="01" style="position: absolute;margin-left: 10px;margin-top: 30px;cursor: pointer;">崩崩崩米游姬</a>
-				<a id="02" style="position: absolute;margin-left: 150px;margin-top: 30px; color: darkgray;">18小时前</a>
+				<a id="02" style="position: absolute;margin-left: 150px;margin-top: 30px; color: darkgray;" th:text="${#dates.format(post.createTime,'yyyy-MM-dd HH:mm:ss')}">18小时前</a>
 				<h3 th:title="${post.title}" th:text="${post.title}" th:onclick="'detail('+${post.id}+')'">【活动】&nbsp;线上赛决赛队伍出炉，投出你们的一票决定他们的命运吧！</h3>
 				<p>经过晋级赛的激烈角逐，四支队伍的晋级赛成绩终于浮出水面~那么究竟是哪两支队伍能够脱颖而出呢！</p>
 				<img src="img/post/xianshangsai0.png" style="margin-left: 45px;"/>

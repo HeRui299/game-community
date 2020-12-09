@@ -3,8 +3,10 @@ package com.herui.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.herui.pojo.Comment;
 import com.herui.pojo.Follow;
 import com.herui.pojo.User;
+import com.herui.service.CommentServiceImpl;
 import com.herui.service.FollowServiceImpl;
 import com.herui.service.PostServiceImpl;
 import com.herui.service.UserServiceImpl;
@@ -38,6 +40,9 @@ public class UserController {
 
     @Autowired
     private FollowServiceImpl followService;
+
+    @Autowired
+    private CommentServiceImpl commentService;
 
     @Autowired
     private HttpSession session;
@@ -156,7 +161,7 @@ public class UserController {
     @RequestMapping("/logout")
     public String logout(){
         session.invalidate();
-        return "redirect:";
+        return "redirect:/";
     }
 
     @RequestMapping("/myPost/{id}")
@@ -175,8 +180,9 @@ public class UserController {
         wrapper.eq("f_id",id);
         List<Follow> list = followService.list(wrapper);
 
-        List<User> userList = new ArrayList<>();
+        List<User> userList = null;
         if (list != null) {
+            userList = new ArrayList<>();
             for (Follow follow : list) {
                 userList.add(userServiceImpl.getById(follow.getUId()));
             }
@@ -193,8 +199,9 @@ public class UserController {
         wrapper.eq("u_id",id);
         List<Follow> list = followService.list(wrapper);
 
-        List<User> userList = new ArrayList<>();
+        List<User> userList = null;
         if (list != null) {
+            userList = new ArrayList<>();
             for (Follow follow : list) {
                 userList.add(userServiceImpl.getById(follow.getFId()));
             }
@@ -208,6 +215,9 @@ public class UserController {
     @RequestMapping("/myComment/{id}")
     public String myComment(@PathVariable Integer id,Model model){
         QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("u_id",id);
+        List<Comment> list = commentService.list(wrapper);
+        model.addAttribute("myComment",list);
         return "MyComment";
     }
 

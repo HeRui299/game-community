@@ -11,14 +11,14 @@
     <div th:each="fan : ${myFans}">
         <p>
             <!-- 用户头像 -->
-            <img th:src="@{|/user/header/${fan.id}|}" alt="">
+            <img th:src="@{|/user/header/${fan.id}|}" onerror="javascript:this.src='img/userheader/avatarDefaultPc.png'" alt="" style="width: 80px;height: 40px;margin-right: 20px">
             <!-- 用户昵称 -->
             <span th:text="${fan.username}"></span>
         </p>
     </div>
 </div>
 
-<div class="content" th:if="${myFans == null}">
+<div class="content" th:if="${#lists.isEmpty(myFans)}">
 
     暂无粉丝喔！
 

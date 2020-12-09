@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/post")
@@ -45,13 +46,14 @@ public class PostController {
     }
 
     @RequestMapping("/save")
+    @ResponseBody
     public Object savePost(Post post){
         User user = (User) session.getAttribute("user");
-        if (user != null){
+        if (user != null) {
             post.setUId(user.getId());
         }
-
-        return postService.save(post);
+        post.setCreateTime(new Date());
+        return postService.save(post) ? true : false;
     }
 
     @RequestMapping("/detail/{id}")
@@ -65,9 +67,9 @@ public class PostController {
         if (postType == 1){
             model.addAttribute("type","甲板");
         }else if(postType == 2){
-            model.addAttribute("type","同人文");
-        }else{
             model.addAttribute("type","攻略");
+        }else{
+            model.addAttribute("type","同人文");
         }
         QueryWrapper wrapper = new QueryWrapper();
         User user = (User) session.getAttribute("user");
