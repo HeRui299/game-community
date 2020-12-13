@@ -67,6 +67,7 @@ public class UserController {
         User a = new User();
         a.setUsername(username);
         a.setPassword(password);
+        a.setHeadUrl("d:/h/upload/f6f71573-f99f-4e4b-85c5-9e5107b4fd20.jpg");
 
         if (userServiceImpl.save(a)) {
             map.put("msg", "注册成功赶快去登录吧！");
@@ -96,8 +97,7 @@ public class UserController {
     @GetMapping("/person")
     public String person(Model model){
         User user = (User) session.getAttribute("user");
-        System.err.println(user);
-        model.addAttribute("user",user);
+        model.addAttribute("user",userServiceImpl.getById(user.getId()));
         return "personal";
     }
 
@@ -143,9 +143,12 @@ public class UserController {
         // 服务器存放路径
         String url = user.getHeadUrl();
         // 文件的后缀
-        String suffix = url.substring(url.lastIndexOf("."));
+        if (url != null) {
+            String suffix = url.substring(url.lastIndexOf("."));
+
         // 响应图片
         response.setContentType("image/" + suffix);
+        }
         try (FileInputStream fis = new FileInputStream(url); OutputStream os = response.getOutputStream();){
             byte[] flush = new byte[1024];
             int b = 0;
@@ -153,7 +156,8 @@ public class UserController {
                 os.write(flush,0,b);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("头像读取异常");
+//            e.printStackTrace();
 //            logger.error("读取头像失败" + e.getMessage());
         }
     }
@@ -184,6 +188,7 @@ public class UserController {
         if (list != null) {
             userList = new ArrayList<>();
             for (Follow follow : list) {
+                System.out.println("粉丝id"+follow.getUId());
                 userList.add(userServiceImpl.getById(follow.getUId()));
             }
         }

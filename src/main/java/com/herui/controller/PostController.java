@@ -2,12 +2,11 @@ package com.herui.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.herui.pojo.Comment;
 import com.herui.pojo.Post;
 import com.herui.pojo.User;
 import com.herui.pojo.UserLike;
-import com.herui.service.CommentServiceImpl;
-import com.herui.service.PostServiceImpl;
-import com.herui.service.UserLikeServiceImpl;
+import com.herui.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
+import java.util.*;
 
 @Controller
 @RequestMapping("/post")
@@ -53,16 +52,50 @@ public class PostController {
             post.setUId(user.getId());
         }
         post.setCreateTime(new Date());
-        return postService.save(post) ? true : false;
+        if (post.getContent().length()>6) {
+            String substring = post.getContent().substring(0, 6);
+            post.setPostDesc(substring);
+        }else{
+            post.setPostDesc(post.getContent());
+        }
+
+        return postService.save(post);
     }
+
+    @Autowired
+    private FollowServiceImpl followService;
 
     @RequestMapping("/detail/{id}")
     public String detail(@PathVariable Integer id, Model model){
         Post post = postService.getById(id);
         model.addAttribute("post",post);
+        // 帖子作者
+        model.addAttribute("hhh",userService.getById(post.getUId()));
+        //帖子id
+        int postId = post.getUId();
+        //用户id
+        User a = (User) session.getAttribute("user");
+        if (a != null) {
+            int userId = a.getId();
+            model.addAttribute("userId",userId);
+            QueryWrapper wrapper2 = new QueryWrapper();
+            wrapper2.eq("u_id", userId);
+            wrapper2.eq("f_id", postId);
+            model.addAttribute("followStatus", followService.getOne(wrapper2) == null ? false : true);
+        }
         QueryWrapper wrapper1 = new QueryWrapper();
         wrapper1.eq("comment_id",id);
-        model.addAttribute("comments",commentService.list(wrapper1));
+        List<Comment> list = commentService.list(wrapper1);
+        List<Map<String,Object>> list1 = new ArrayList<>();
+        if (list!=null) {
+            for (Comment comment: list) {
+                Map<String,Object> map1 = new HashMap<>();
+                map1.put("comment",comment);
+                map1.put("user",userService.getById(comment.getUId()));
+                list1.add(map1);
+            }
+        }
+        model.addAttribute("commentMap",list1);
         Integer postType = post.getPostType();
         if (postType == 1){
             model.addAttribute("type","甲板");
@@ -93,6 +126,8 @@ public class PostController {
      * @param id
      * @return
      */
+    @Autowired
+    private UserServiceImpl userService;
     @RequestMapping("/like")
     @ResponseBody
     @Transactional
@@ -102,11 +137,15 @@ public class PostController {
         wrapper.eq("u_id",userLike.getUId());
         wrapper.eq("like_id",userLike.getLikeId());
         Post post = postService.getById(userLike.getLikeId());
+        User byId = userService.getById(post.getUId());
         UserLike one = userLikeService.getOne(wrapper);
         if (one != null){ // 证明点过赞
+            byId.setLikeCount(byId.getLikeCount()-1);
             post.setLikeCount(post.getLikeCount() - 1);
             return userLikeService.removeById(one.getId()) && postService.updateById(post);
         }
+        byId.setLikeCount(byId.getLikeCount()+1);
+        userService.updateById(byId);
         post.setLikeCount(post.getLikeCount() + 1);
         // 点赞
        return userLikeService.save(userLike) && postService.updateById(post);

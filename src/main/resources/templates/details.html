@@ -41,9 +41,14 @@
 				<div class="reply">
 					<h3>全部评论</h3>
 					<!-- comment -->
-					<div class="name" th:each="comment : ${comments}">
-						<img src="img/userheader/avatar30013.png" style="width: 55px;height: 55px;border-radius: 50%;"/>
-						<span th:text="${comment.content}">雨落狂流之夜</span>
+					<div class="name" th:each="map : ${commentMap}">
+						<p>
+						<img th:src="@{|/user/header/${map.user.id}|}" style="width: 55px;height: 55px;border-radius: 50%;"/>
+						<span th:text="${map.user.username}"></span>
+						</p>
+						<p style="text-indent: 60px">
+						<span th:text="${map.comment.content}">雨落狂流之夜</span>
+						</p>
 					</div>
 					<div class="textarea">
 						<textarea rows="12"  id="ss" cols="60" placeholder="请开始你的表演"></textarea>
@@ -59,20 +64,30 @@
 			</div>
 			<div class="R">
 				<div class="information">
-					<div class="avatar" style="">
-						<img src="img/userheader/avatarDefaultPc.png" style="width: 100px;height: 100px;"/>
+					<div class="avatar">
+						<img onerror="javascript:this.src='img/userheader/avatarDefaultPc.png'" id="tx1" style="width: 112px;height: 112px"/>
 					</div>
 					<div class="text">
-						<h3>崩崩崩米游姬</h3>
-						<button class="follow" onclick="show1()">
-							<span class="true">
-  								关注
-  							</span>
-  							<span class="false">
-  								已关注
-  							</span>
-						</button>
-						<script type="text/javascript">
+						<h3 th:text="${hhh.username}">崩崩崩米游姬</h3>
+						<input type="button" class="follow"  th:if="(${post.uId} != ${userId}) and (${followStatus} != null)" th:value="${followStatus ? '已关注' : '关注'}" th:onclick="'follow('+${hhh.id}+')'"/>
+						<script type="text/javascript" th:inline="javascript">
+							var user = [[${session.user}]]; // 发帖人的id
+							var id = 0;
+							if (user != null){
+								id = user.id;
+							}
+							if(id != '' || id != null){
+								$("#tx1").attr('src',"/user/header/"+id);
+							}else {
+								$("#tx1").attr('src', "ll.jpg");
+							}
+
+							function follow(fid) {
+								$.get("/follow",{"uId":id,"fId":fid},function () {
+									window.location.reload();
+								})
+							}
+
 							function show1(){
   								var aTrue = document.getElementsByClassName(true);
   								var aFalse = document.getElementsByClassName(false);

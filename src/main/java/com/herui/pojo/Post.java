@@ -35,4 +35,6 @@ public class Post {
     private Integer postType;
     // 帖子标签
     private Integer postTag;
+    // 帖子秒速
+    private String postDesc;
 }

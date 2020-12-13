@@ -128,7 +128,7 @@ body{
 }
 .reply >.name{
 	width: auto;
-	height: 65px;
+	height: 155px;
 	/*border: 1px solid #00BFFF;*/
 	margin-top: 18px;
 }
@@ -195,11 +195,10 @@ body{
 .information >.avatar{
 	width: 100px;
 	height: 100px;
-	border: 1px solid red;
 	border-radius: 50%;
 	position: relative;
-	top: 16%;
-	left: 5%;
+	top: 50%;
+	left: -190px;
 }
 .information >.text{
 	font-family: "微软雅黑";
@@ -211,8 +210,8 @@ body{
 .information >.text >.follow{
 	text-decoration:none ;
 	position: relative;
-	margin-top: 12px;
-	margin-right: 30px;
+	margin-top: 92px;
+	margin-right: -115px;
 	padding: 8px 30px;
 	background-color: rgba(0,0,0,0);
 	border-radius: 5px;

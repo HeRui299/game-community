@@ -42,7 +42,17 @@ public class IndexController {
         QueryWrapper wrapper1 = new QueryWrapper<>();
         wrapper1.orderByDesc("create_time");
         List<Post> list = postService.list(wrapper1);
-        model.addAttribute("posts",list);
+        List<Map<String,Object>> list1 = new ArrayList<>();
+
+        if (list!=null) {
+            for (Post post : list) {
+                Map<String,Object> map1 = new HashMap<>();
+                map1.put("post",post);
+                map1.put("user",userService.getById(post.getUId()));
+                list1.add(map1);
+            }
+        }
+        model.addAttribute("postMap",list1);
 
         List<Map<String,Object>> listMap = new ArrayList<>();
         // 推荐用户
